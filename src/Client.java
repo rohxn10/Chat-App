@@ -5,6 +5,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.io.IOException;
 import java.util.Scanner;
+import java.net.UnknownHostException;
 
 public class Client{
     private Socket socket;
@@ -91,5 +92,5 @@ public class Client{
         catch(IOException e){
             e.printStackTrace();
         }
-        
+    }   
 }
