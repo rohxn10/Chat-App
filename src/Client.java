@@ -3,6 +3,8 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;  
 import java.net.Socket;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Client{
     private Socket socket;
@@ -32,7 +34,7 @@ public class Client{
             Scanner scanner = new Scanner(System.in);
             while(socket.isConnected()){
                 String message = scanner.nextLine();
-                bufferedWriter.write(username +":" + messageToSend);
+                bufferedWriter.write(username +":" + message);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
@@ -74,12 +76,20 @@ public class Client{
     }
 
     public static void main(String[] args){
-        Scanner scanner = new scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
-        Socket socket = new Socket("localhost", 1234);
-        Client client = new Client(socket, username);
-        client.listenForMessage();
-        client.sendMessage();
-    }
+        try{
+            Socket socket = new Socket("localhost", 1234);
+            Client client = new Client(socket, username);
+            client.listenForMessage();
+            client.sendMessage();
+        }
+        catch(UnknownHostException e){
+            e.printStackTrace();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+        
 }
